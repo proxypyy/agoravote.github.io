@@ -14,6 +14,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vote.css">
   <!-- Применяем сохранённую тему до отрисовки страницы, чтобы не было вспышки -->
   <script>
     document.documentElement.classList.add("js");
@@ -53,6 +54,7 @@
       <div class="header-menu" id="headerMenu">
         <nav class="nav" aria-label="Основное меню">
           <a class="nav-link is-active" href="#candidates" aria-current="true">Кандидаты</a>
+          <a class="nav-link" href="#vote">Голосование</a>
           <a class="nav-link" href="#events">О мероприятии</a>
         </nav>
 
@@ -94,6 +96,28 @@
       </div>
       <ul class="grid" id="grid" data-reveal></ul>
       <noscript><p class="noscript">Для отображения списка кандидатов включите JavaScript.</p></noscript>
+    </section>
+
+    <!-- Онлайн-голосование: лист и урну рисует vote.js, голоса хранятся в Firebase -->
+    <section class="vote" id="vote" aria-labelledby="voteTitle">
+      <h2 id="voteTitle">Голосование</h2>
+      <div class="vote-body">
+        <div class="vote-intro">
+          <p class="vote-kicker">прямо с телефона, за 10 секунд</p>
+          <p class="vote-lead">
+            Отметьте одного кандидата и опустите бюллетень в урну. Имя вводить не нужно, голос анонимный.
+          </p>
+          <ul class="vote-facts">
+            <li><b>1</b>голос с одного устройства</li>
+            <li><b>0</b>регистраций и паролей</li>
+            <li><b>✓</b>изменить выбор после отправки нельзя</li>
+          </ul>
+          <p class="vote-status" id="voteStatus" role="status" data-state="loading"><span class="dot" aria-hidden="true"></span><span>Подключаемся…</span></p>
+        </div>
+        <div class="vote-stage" id="voteStage" data-reveal></div>
+        <div class="vote-urn" id="voteUrn" data-reveal aria-hidden="true"></div>
+      </div>
+      <noscript><p class="noscript">Для голосования включите JavaScript.</p></noscript>
     </section>
 
     <section class="events" id="events" aria-labelledby="eventsTitle">
@@ -162,6 +186,8 @@
   </div>
 
   <script src="candidates.js"></script>
+  <script src="firebase-config.js"></script>
   <script src="app.js"></script>
+  <script type="module" src="vote.js"></script>
 </body>
 </html>
