@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#22302a" media="(prefers-color-scheme: dark)">
+  <title>agora</title>
+  <meta name="description" content="Выборы президента школы №30. 2026">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <!-- Применяем сохранённую тему до отрисовки страницы, чтобы не было вспышки -->
+  <script>
+    document.documentElement.classList.add("js");
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" id="siteName" aria-label="agora, в начало страницы">
+        <img class="brand-logo" src="logo.png" alt="" width="41" height="24">
+        <span>agora</span>
+      </a>
+
+      <!-- короткая кнопка опроса для телефона; ссылка берётся из основной кнопки -->
+      <a class="cta-mini" href="#" data-survey target="_blank" rel="noopener">Опрос</a>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Тёмная тема">
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <button class="burger" id="burger" type="button"
+              aria-label="Открыть меню" aria-expanded="false" aria-controls="headerMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="header-menu" id="headerMenu">
+        <nav class="nav" aria-label="Основное меню">
+          <a class="nav-link is-active" href="#candidates" aria-current="true">Кандидаты</a>
+          <a class="nav-link" href="#events">О мероприятии</a>
+        </nav>
+
+        <div class="cta-wrap">
+          <!-- ВСТАВЬ СЮДА ССЫЛКУ НА GOOGLE ФОРМУ вместо # в href -->
+          <a class="cta" href="https://forms.gle/Ey3grcEnpfn2JCFy8" target="_blank" rel="noopener">Пройти опрос</a>
+          <p class="cta-note">пройди опрос, это очень важно для меня</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Блок победителя: появляется сам, если в candidates.js у кандидата status: "win" -->
+    <section class="winner" id="winner" hidden aria-labelledby="winnerTitle" data-reveal></section>
+
+    <section class="intro" aria-labelledby="pageTitle">
+      <h1 id="pageTitle">Выборы школьного президента</h1>
+      <div class="intro-side">
+        <p class="intro-lead">
+          Это ежегодная традиция нашей школы. Каждый год ученики сами выбирают лидера,
+          который будет представлять их интересы и вместе с ними менять школьную жизнь к лучшему.
+        </p>
+        <p class="intro-when">
+          Голосуем
+          <span class="date-mark">19 октября<svg class="date-ring" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M14 40C6 22 40 7 98 6c56-1 96 8 96 26 0 18-44 25-98 24C42 55 6 47 8 30 9 19 30 11 56 8"/></svg></span>
+          на любой перемене в&nbsp;главном холле.
+        </p>
+      </div>
+    </section>
+
+    <section class="candidates" id="candidates" aria-labelledby="candTitle">
+      <div class="candidates-head" data-reveal>
+        <h2 id="candTitle">Кандидаты</h2>
+        <p class="hand-note">
+          нажми на карточку, там программа
+          <svg class="hand-arrow" viewBox="0 0 64 64" aria-hidden="true"><path d="M50 6C54 26 44 44 16 54"/><path d="M28 48l-12 6 9 9"/></svg>
+        </p>
+      </div>
+      <ul class="grid" id="grid" data-reveal></ul>
+      <noscript><p class="noscript">Для отображения списка кандидатов включите JavaScript.</p></noscript>
+    </section>
+
+    <section class="events" id="events" aria-labelledby="eventsTitle">
+      <h2 id="eventsTitle">О мероприятии</h2>
+
+      <div class="events-body">
+        <div class="events-about">
+          <h3>Чем занимается президент</h3>
+          <ul class="duties">
+            <li>Организует школьные мероприятия и акции.</li>
+            <li>Задаёт темп школьной жизни и следит, чтобы в ней всегда что-то происходило.</li>
+            <li>Выступает голосом учеников: передаёт администрации идеи и пожелания.</li>
+          </ul>
+
+          <div class="events-help">
+            <h3>Не знаете, за кого голосовать?</h3>
+            <p>Откройте карточку кандидата: там его история и программа. И пройдите короткий опрос, нам важно ваше мнение.</p>
+            <p class="help-links">
+              <a class="btn btn--line" href="#candidates">Смотреть кандидатов</a>
+              <!-- ссылка подставляется автоматически из кнопки «Пройти опрос» в шапке -->
+              <a class="btn btn--red" href="#" data-survey target="_blank" rel="noopener">Пройти опрос</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Бюллетень: шаги голосования. Строки можно отмечать галочкой -->
+        <div class="ballot" role="group" aria-labelledby="ballotTitle" data-reveal>
+          <div class="ballot-head">
+            <p class="ballot-kind">Бюллетень</p>
+            <h3 id="ballotTitle">Как проголосовать</h3>
+            <p class="ballot-date">Приходите 19 октября</p>
+            <p class="ballot-when">на любой перемене</p>
+          </div>
+          <p class="ballot-try" id="ballotTry">Отметьте шаги, чтобы потренироваться.</p>
+          <ol class="ballot-steps">
+            <li><button type="button" class="ballot-row" aria-pressed="false"><span class="ballot-num">1</span><span class="ballot-text">Приходите в главный холл, к охраннику.</span><span class="ballot-box" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 17.5l6.5 6.5L27 7"/></svg></span></button></li>
+            <li><button type="button" class="ballot-row" aria-pressed="false"><span class="ballot-num">2</span><span class="ballot-text">Распишитесь в списке, чтобы мы знали, что вы проголосовали один раз.</span><span class="ballot-box" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 17.5l6.5 6.5L27 7"/></svg></span></button></li>
+            <li><button type="button" class="ballot-row" aria-pressed="false"><span class="ballot-num">3</span><span class="ballot-text">Получите бюллетень со списком кандидатов.</span><span class="ballot-box" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 17.5l6.5 6.5L27 7"/></svg></span></button></li>
+            <li><button type="button" class="ballot-row" aria-pressed="false"><span class="ballot-num">4</span><span class="ballot-text">Отметьте своего кандидата и опустите бюллетень в специальный контейнер.</span><span class="ballot-box" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 17.5l6.5 6.5L27 7"/></svg></span></button></li>
+          </ol>
+          <p class="ballot-foot" id="ballotFoot" aria-live="polite">Голосование занимает меньше минуты.</p>
+        </div>
+      </div>
+
+      <p class="events-final" data-reveal><span>Твой голос важен!<svg viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6 16C150 6 330 4 594 10"/><path pathLength="1" d="M520 18c30-3 52-4 72-4"/></svg></span></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Школьный проект, 2026</p>
+    <p>Невзоров Арсений, 11 класс.</p>
+  </footer>
+
+  <!-- Окно кандидата: открывается по клику на карточку, закрывается кликом в любом месте -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalName" tabindex="-1">
+      <span class="modal-grip" aria-hidden="true"></span>
+      <div class="modal-photo-slot" id="modalPhotoSlot"></div>
+      <div class="modal-body">
+        <h2 id="modalName"></h2>
+        <p class="modal-grade" id="modalGrade"></p>
+        <div class="modal-text" id="modalText"></div>
+      </div>
+      <p class="modal-hint">Нажмите в любом месте, чтобы закрыть</p>
+    </div>
+  </div>
+
+  <script src="candidates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
